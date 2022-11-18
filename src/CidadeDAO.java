@@ -9,6 +9,7 @@ public class CidadeDAO {
 	public CidadeDAO() {
 		this.conn = new ConnectionFactory().getConnection();
 		System.out.println("Conectado");
+		System.out.println();
 	}
 	
 	public void inserirCidade(Cidade cidade) throws SQLException {
@@ -25,7 +26,9 @@ public class CidadeDAO {
 		stmt.execute();
 		stmt.close();
 		
+		System.out.println();
 		System.out.println("Cidade inserida com sucesso");
+		System.out.println();
 	}
 	
 	public void removerCidade(int ddd) throws SQLException {
@@ -36,6 +39,8 @@ public class CidadeDAO {
 		stmt.execute();
 		stmt.close();
 		
+		System.out.println();
 		System.out.println("Cidade deletada com sucesso");
+		System.out.println();
 	}
 }

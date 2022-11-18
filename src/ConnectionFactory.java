@@ -4,8 +4,6 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	
-	//Classe responsável por gerar a conexão com o banco de dados
-
 	public Connection getConnection() {
 		try {
 			return DriverManager.getConnection(
