@@ -8,27 +8,28 @@ public class UI {
 	public static Scanner sc = new Scanner(System.in);
 	
 	public static int menu() {
-		System.out.println("------------------------------");
-		System.out.println("             Menu");
+		System.out.println("--------------------------------");
+		System.out.println("              Menu");
 		System.out.println();
 		
 		System.out.println("1-Inserir cidade");
 		System.out.println("2-Remover cidade");
 		System.out.println("3-Ver todas as cidades");
 		System.out.println("4-Ver cidade");
-		System.out.println("5-Pesquisar cidade por nome");
-		System.out.println("6-Pesquisar estado");
-		System.out.println("7-Sair");
+		System.out.println("5-Filtrar por nome");
+		System.out.println("6-Filtrar por estado");
+		System.out.println("7-Filtrar por capital");
+		System.out.println("8-Sair");
 		System.out.println();
-		System.out.println("-----------------------------");
+		System.out.println("--------------------------------");
 		
 		System.out.print("Escolha uma opção: ");
 		return sc.nextInt();		
 	}
 	
 	public static Cidade inserirCidade() {
-		System.out.println("------------------------------");
-		System.out.println("       Cadastrar cidade");
+		System.out.println("--------------------------------");
+		System.out.println("        Cadastrar cidade");
 		System.out.println();
 		
 		System.out.print("DDD: ");
@@ -64,8 +65,8 @@ public class UI {
 	}
 	
 	public static int removerCidade() {		
-		System.out.println("-----------------------------");
-		System.out.println("        Remover cidade");
+		System.out.println("--------------------------------");
+		System.out.println("         Remover cidade");
 		System.out.println();
 		
 		System.out.print("Insira o DDD da cidade: ");
@@ -73,8 +74,8 @@ public class UI {
 	}
 	
 	public static int verCidade() {
-		System.out.println("-----------------------------");
-		System.out.println("          Ver cidade");
+		System.out.println("--------------------------------");
+		System.out.println("           Ver cidade");
 		System.out.println();
 		
 		System.out.print("Insira o DDD da cidade: ");
@@ -82,26 +83,46 @@ public class UI {
 	}
 	
 	public static String pesquisarCidade() {
-		System.out.println("------------------------------");
-		System.out.println("       Pesquisar cidade");
+		System.out.println("--------------------------------");
+		System.out.println("         Filtrar cidade");
 		System.out.println();
 		
-		System.out.print("Insira o nome da cidade: ");
+		System.out.print("Insira o nome a pesquisar: ");
 		sc.nextLine();
 		return sc.nextLine();
 	}
 	
 	public static String pesquisarEstado() {
-		System.out.println("------------------------------");
-		System.out.println("       Pesquisar estado");
+		System.out.println("--------------------------------");
+		System.out.println("         Filtrar estado");
 		System.out.println();
 		
-		System.out.print("Insira o nome do estado: ");
+		System.out.print("Insira estado a pesquisar: ");
 		return sc.next();
 	}
 	
+	public static boolean pesquisarCapital() {
+		System.out.println("--------------------------------");
+		System.out.println("         Filtrar capital");
+		System.out.println();
+		
+		System.out.print("Filtrar capitais (s/n)? ");
+		char resp = sc.next().charAt(0);
+		
+		if (resp=='s' || resp=='S') {
+			return true;
+		} else if (resp=='n' || resp=='N'){
+			return false;
+		} else {
+			System.out.println("Opção inválida");
+			voltar();
+		}
+		
+		return false;
+	}
+	
 	public static void voltar() {
-		System.out.println("------------------------------");
+		System.out.println("--------------------------------");
 		System.out.print("Voltar ao menu (s/n)? ");
 		char voltar = sc.next().charAt(0);
 		

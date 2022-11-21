@@ -29,7 +29,7 @@ public class Cidade {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("------------------------------" + "\n");
+		sb.append("--------------------------------" + "\n");
 		if (capital) {
 			sb.append(nome + " - Capital\n");
 		} else {

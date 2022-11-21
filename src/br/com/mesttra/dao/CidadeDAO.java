@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.mesttra.factory.ConnectionFactory;
 import br.com.mesttra.pojo.Cidade;
@@ -65,103 +64,84 @@ public class CidadeDAO {
 		}
 	}
 	
-	public List<Cidade> verCidades() {
+	public ArrayList<Cidade> verCidades() {
 		String sql = "SELECT * FROM cidade";
-		List<Cidade> cidades = new ArrayList<>();
 		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-			
-			while (rs.next()) {
-				Cidade cidade = new Cidade();
-				
-				cidade.setDdd(rs.getInt("ddd"));
-				cidade.setNome(rs.getString("nome"));
-				cidade.setNroHabitantes(rs.getInt("nro_habitantes"));
-				cidade.setRendaPerCapita(rs.getDouble("renda_per_capita"));
-				cidade.setCapital(rs.getBoolean("capital"));
-				cidade.setEstado(rs.getString("estado"));
-				cidade.setNomePrefeito(rs.getString("nome_prefeito"));
-				
-				cidades.add(cidade);
-			}
+			return setCidades(stmt);
 			
 		} catch (SQLException e) {
 			System.err.println("Não foi possível ver as cidades");
-			e.printStackTrace();
 		}
-		
-		return cidades;
+			
+		return null;
 	}
 	
-	public Cidade verCidade(int ddd) {
+	public ArrayList<Cidade> verCidade(int ddd) {
 		String sql = "SELECT * FROM cidade WHERE ddd = ?";
-		Cidade cidade = new Cidade();
 		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, ddd);
-			
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				cidade.setDdd(rs.getInt("ddd"));
-				cidade.setNome(rs.getString("nome"));
-				cidade.setNroHabitantes(rs.getInt("nro_habitantes"));
-				cidade.setRendaPerCapita(rs.getDouble("renda_per_capita"));
-				cidade.setCapital(rs.getBoolean("capital"));
-				cidade.setEstado(rs.getString("estado"));
-				cidade.setNomePrefeito(rs.getString("nome_prefeito"));
-			}
-			
-			stmt.close();
+			return setCidades(stmt);
 			
 		} catch (SQLException e) {
 			System.err.println("Não foi possível ver esta cidade");
-			e.printStackTrace();
 		}
-		
-		return cidade;
+			
+		return null;
 	}
 	
-	public Cidade procurarCidade(String search) {
+	public ArrayList<Cidade> procurarCidade(String search) {
 		String sql = "SELECT * FROM cidade WHERE nome LIKE ?";
-		Cidade cidade = new Cidade();
 		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, search + '%');
-			
-			ResultSet rs = stmt.executeQuery();
-			
-			while (rs.next()) {			
-				cidade.setDdd(rs.getInt("ddd"));
-				cidade.setNome(rs.getString("nome"));
-				cidade.setNroHabitantes(rs.getInt("nro_habitantes"));
-				cidade.setRendaPerCapita(rs.getDouble("renda_per_capita"));
-				cidade.setCapital(rs.getBoolean("capital"));
-				cidade.setEstado(rs.getString("estado"));
-				cidade.setNomePrefeito(rs.getString("nome_prefeito"));
-			}
-			
-			stmt.close();
+			return setCidades(stmt);
 			
 		} catch (SQLException e) {
 			System.err.println("Não foi possível pesquisar uma cidade");
-			e.printStackTrace();
 		}
-	
-		return cidade;
+			
+		return null;
 	}
 	
-	public List<Cidade> procurarEstado(String estado) {
+	public ArrayList<Cidade> procurarEstado(String estado) {
 		String sql = "SELECT * FROM cidade WHERE estado = ?";
-		List<Cidade> cidades = new ArrayList<>();
 		
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, estado);
+			return setCidades(stmt);
 			
+		} catch (SQLException e) {
+			System.err.println("Não foi possível pesquisar um estado");
+		}
+			
+		return null;
+	}
+	
+	public ArrayList<Cidade> filtrarCapital(boolean capital) {
+		String sql = "SELECT * FROM cidade WHERE capital = ?";
+		
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setBoolean(1, capital);
+			return setCidades(stmt);
+			
+		} catch (SQLException e) {
+			System.err.println("Não foi possível filtrar as capitais");
+		}
+		
+		return null;
+	}
+	
+	private ArrayList<Cidade> setCidades(PreparedStatement stmt) {
+		ArrayList<Cidade> cidades = new ArrayList<>();
+		
+		try {			
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				Cidade cidade = new Cidade();
@@ -180,7 +160,6 @@ public class CidadeDAO {
 			rs.close();
 			
 		} catch (SQLException e) {
-			System.err.println("Não foi possível pesquisar um estado");
 			e.printStackTrace();
 		}
 		
